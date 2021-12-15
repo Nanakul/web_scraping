@@ -9,7 +9,7 @@ web_title = soup.select('title')
 print(web_title[0].getText())
 
 # Grabbing a class
-web_class = soup.select('.toc')
+web_class = soup.select('.toc')[0]
 
 # for loop to grab all text within the toc class
 for item in web_class:
