@@ -39,10 +39,23 @@ def third_url():
     base_url = 'https://books.toscrape.com/catalogue/page-{}.html'
 
     # Grab all 2 star books with corresponding titles on the the first page.
-    req = requests.get(base_url.format(1))
-    
+    book_req = requests.get(base_url.format(1))
+    book_soup = bs4.BeautifulSoup(book_req.text, 'lxml')
+    products = book_soup.select('.product_pod')
+    # Print statement to see if there are correct number of products per page
+    print(len(products))
+
+    two_star_books = []
+
+    for i in range(1, 51):
+        scraped_url = base_url.format(i)
+        scraped_req = requests.get(scraped_url)
+        scraped_soup = bs4.BeautifulSoup(scraped_req.text, 'lxml')
+        
+
 
 
 if __name__ == '__main__':
     # first_url()
-    second_url()
+    # second_url()
+    third_url()
