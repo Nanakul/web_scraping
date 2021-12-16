@@ -47,13 +47,22 @@ def third_url():
 
     two_star_books = []
 
+    # Loop to iterate through all the pages on the website.
     for i in range(1, 51):
         scraped_url = base_url.format(i)
         scraped_req = requests.get(scraped_url)
         scraped_soup = bs4.BeautifulSoup(scraped_req.text, 'lxml')
-        
+        books = scraped_soup.select('.product_pod')
 
-
+        # Loop to iterate through all books on the page.
+        for book in books:
+            if len(book.select('.star-rating.Two')) != 0:
+                book_title = book.select('a')[1]['title']
+                two_star_books.append(book_title)
+    
+    print(len(two_star_books))
+    for x in two_star_books:
+        print(x)
 
 if __name__ == '__main__':
     # first_url()
