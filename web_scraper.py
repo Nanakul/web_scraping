@@ -24,8 +24,13 @@ def second_url():
     second_response = requests.get(d4_url)
     second_soup = bs4.BeautifulSoup(second_response.text, 'lxml')
     d4_first_img = second_soup.select('.thumbimage')[0]
-    d4_first_src_url = d4_first_img['src']
-    print(d4_first_src_url)
+    d4_first_src_url = requests.get('https:' + d4_first_img['src'])
+    d4_first_contents = d4_first_src_url.content
+    
+    # Open the image file on computer
+    f = open('d4_classes.jpg', 'wb')
+    f.write(d4_first_contents)
+    f.close()
 
 
 if __name__ == '__main__':
