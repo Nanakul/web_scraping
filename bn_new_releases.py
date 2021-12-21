@@ -14,9 +14,16 @@ def new_release():
     bn_resp = requests.get(bn_url.format(1), headers=HEADERS)
     bn_soup = bs4.BeautifulSoup(bn_resp.text, 'lxml')
 
-    # Grab the title.
+    # Grab the titles on the page.
     book_title = bn_soup.select('.product-shelf-title')
     print(len(book_title))
+    
+    # Iterate through all 50 pages of New Releases.
+    for i in range(1, 51):
+        scraped_url = bn_url.format(i)
+        scraped_resp = requests.get(scraped_url, headers=HEADERS)
+        scraped_soup = bs4.BeautifulSoup(scraped_resp.text, 'lxml')
+        books = scraped_soup('.product-shelf-title')
 
 
 if __name__ == '__main__':
